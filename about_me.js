@@ -60,10 +60,12 @@ for(let i = 0; i < selectItems.length; i++) {
 
     });
 }
-
-const filterItems = document.querySelectorAll('[data-filter-item]');
+document.addEventListener("DOMContentLoaded", () => {
+    const filterItems = document.querySelectorAll('[data-filter-item]');
+});
 
 const filterFunc = function (selectedValue) {
+  const filterItems = document.querySelectorAll('[data-filter-item]');
     for(let i = 0; i < filterItems.length; i++) {
         if(selectedValue == "all") {
             filterItems[i].classList.add('active');
@@ -160,3 +162,64 @@ for(let i = 0; i < navigationLinks.length; i++) {
     toast.classList.remove("show");
   }, 3000); // disappears after 3 seconds
 }
+
+var swiper = new Swiper(".myToolsSwiper", {
+    loop: true,
+    slidesPerView: 3,
+    spaceBetween: 20,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+    },
+    speed: 3000,  /* speed of auto slide */
+    freeMode: true,
+    freeModeMomentum: false,
+  });
+
+
+const flyers = Array.from({ length: 21 }, (_, i) => `flyer (${i + 1}).jpg`);
+const vid = Array.from({ length: 1 }, (_, i) => `videoedit${i + 1}.mp4`);
+
+const projectList = document.getElementById('projectList');
+
+flyers.forEach((file, index) => {
+  projectList.innerHTML += `
+    <li class="project-item active" data-filter-item data-category="flyers">
+      <a href="myworks/flyers/${file}" target="_blank">
+        <figure class="project-img">
+          <div class="project-item-icon-box">
+            <ion-icon name="eye-outline"></ion-icon>
+          </div>
+          <img src="myworks/flyers/${file}" 
+               alt="Flyer (${index + 1})" loading="lazy">
+        </figure>
+        <h3 class="project-title">Flyer ${index + 1}</h3>
+        <p class="project-category">Flyers</p>
+      </a>
+    </li>
+  `;
+});
+
+vid.forEach((file, index) => {
+  projectList.innerHTML += `
+    <li class="project-item active" data-filter-item data-category="video editing">
+      <a href="myworks/videos/${file}" target="_blank">
+        <figure class="project-img">
+          <div class="project-item-icon-box">
+            <ion-icon name="eye-outline"></ion-icon>
+          </div>
+          <video 
+          src="myworks/videos/${file}"
+          muted
+          loop
+          playsinline
+          preload="metadata">
+        </video>
+
+        </figure>
+        <h3 class="project-title">video ${index + 1}</h3>
+        <p class="project-category">Video Editing</p>
+      </a>
+    </li>
+  `;
+});
